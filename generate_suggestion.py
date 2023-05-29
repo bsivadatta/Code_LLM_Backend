@@ -11,7 +11,7 @@ class SuggestionClass:
 
   def generate_suggestion(self, comment):
     inputs = tokenizer(comment, return_tensors="pt").to('cpu')
-    generated_ids = model.generate(**inputs, max_new_tokens = 75)
+    generated_ids = model.generate(**inputs, max_new_tokens = 35)
     return tokenizer.decode(generated_ids[:, inputs["input_ids"].shape[1]:][0])
 
 def main():

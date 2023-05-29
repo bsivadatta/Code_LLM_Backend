@@ -14,7 +14,7 @@ async def create_item(item: Item):
     return {"suggestion":"a"}
   a = (my_obj.generate_suggestion(item.suggestion))
   # Stripping string to remove dummy lines
-  a = a.lstrip()
+  a = a.lstrip("\r\n")
   a = a.rstrip()
   return {"suggestion":a}
 
