@@ -13,9 +13,11 @@ async def create_item(item: Item):
   if not item:
     return {"suggestion":"a"}
   a = (my_obj.generate_suggestion(item.suggestion))
-  # Stripping string to remove dummy lines
-  a = a.lstrip("\r\n")
-  a = a.rstrip()
+  # a = a.lstrip("\r\n")
+  # a = a.lstrip()
+  # a = a.rstrip()
+  # if "\r\n\r\n" in a:
+  #   a = a.split("\r\n\r\n")[0]
   return {"suggestion":a}
 
 @app.get("/")
