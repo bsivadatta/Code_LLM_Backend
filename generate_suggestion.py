@@ -1,9 +1,10 @@
 import torch, time
 from transformers import AutoTokenizer, AutoModelForCausalLM, AutoConfig
+from transformers import TextStreamer
 config = AutoConfig.from_pretrained('./config_santacoder.pt', trust_remote_code=True)
 tokenizer = AutoTokenizer.from_pretrained("./tokenizer_santacoder/")
 model = AutoModelForCausalLM.from_pretrained('./model_santacoder.pt', trust_remote_code=True).to('cpu')
-
+streamer = TextStreamer(tokenizer)
 class SuggestionClass:
   def __init__(self):
     # Initialize any necessary variables or resources here
@@ -11,7 +12,7 @@ class SuggestionClass:
 
   def generate_suggestion(self, comment):
     inputs = tokenizer(comment, return_tensors="pt").to('cpu')
-    generated_ids = model.generate(**inputs, max_new_tokens = 35)
+    generated_ids = model.generate(**inputs, streamer=streamer, max_new_tokens = 40)
     return tokenizer.decode(generated_ids[:, inputs["input_ids"].shape[1]:][0])
 
 def main():
